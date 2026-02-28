@@ -46,3 +46,12 @@ Notifications only appear when the terminal is **not** in focus - no spam while 
 ## Credits
 
 Based on [this article](https://frantic.im/notify-on-completion/) by Alex Kotliarskyi.
+
+## License
+
+MIT - do whatever you want with it.
+
+## Acknowledgments
+
+- Original solution by [Alex Kotliarskyi](https://frantic.im/notify-on-completion/)
+- Built with help from Claude (Anthropic)
