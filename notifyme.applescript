@@ -15,7 +15,7 @@ on run argv
         set notifBody to cmdName & " (exit code " & errorCode & ")"
       end if
       
-      do shell script "terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -sound Ping -activate com.googlecode.iterm2"
+      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -activate com.googlecode.iterm2; afplay /System/Library/Sounds/Ping.aiff"
     end if
   end tell
 end run
