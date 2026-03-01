@@ -15,8 +15,7 @@ on run argv
         set notifBody to cmdName & " (exit code " & errorCode & ")"
       end if
       
-      display notification notifBody with title notifTitle
-      do shell script "afplay /System/Library/Sounds/Ping.aiff"
+      do shell script "terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -sound Ping -activate com.googlecode.iterm2"
     end if
   end tell
 end run
