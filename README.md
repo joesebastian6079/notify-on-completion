@@ -1,5 +1,15 @@
 # notify-on-completion
 
+## The Problem
+
+Developers running long terminal commands (builds, deploys, test suites) constantly tab back to check if they're done. Claude Code users miss input prompts while multitasking. There's no native macOS solution that's both focus-aware and supports AI coding tools.
+
+## The Solution
+
+A lightweight macOS utility that delivers smart notifications when terminal commands complete or when Claude Code needs user input. Only alerts when the terminal isn't in focus — no unnecessary interruptions.
+
+---
+
 macOS notifications for terminal commands and Claude Code. Get pinged when long-running commands finish or when Claude Code needs your input. Clicking the notification opens iTerm2 directly.
 
 ## What's included
@@ -15,7 +25,6 @@ macOS notifications for terminal commands and Claude Code. Get pinged when long-
 
 - macOS
 - [terminal-notifier](https://github.com/julienXX/terminal-notifier) (for clickable notifications)
-
 ```bash
 brew install terminal-notifier
 ```
@@ -23,7 +32,6 @@ brew install terminal-notifier
 ## Installation
 
 ### Terminal notifications
-
 ```bash
 # Clone the repo
 git clone https://github.com/joesebastian6079/notify-on-completion.git ~/notify-on-completion
@@ -60,6 +68,18 @@ Clicking any notification opens iTerm2 directly.
 If you use Terminal.app instead of iTerm2, update the `-activate` parameter in the scripts:
 - iTerm2: `com.googlecode.iterm2`
 - Terminal: `com.apple.Terminal`
+
+## Tradeoffs & Decisions
+
+– Chose AppleScript over Swift for rapid prototyping and accessibility to non-developers
+– Used terminal-notifier for clickable notifications instead of native osascript alerts (which can't focus apps on click)
+– iTerm2-specific by design — focused on the terminal most developers actually use rather than trying to support every terminal emulator
+
+## What I Learned
+
+– macOS notification system has surprising limitations — native osascript notifications can't carry click actions, which forced the terminal-notifier dependency
+– Focus detection via System Events is more reliable than checking window process IDs
+– Zsh precmd/preexec hooks are the cleanest integration point for shell completion tracking
 
 ## License
 
