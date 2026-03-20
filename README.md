@@ -8,6 +8,16 @@ Developers running long terminal commands (builds, deploys, test suites) constan
 
 A lightweight macOS utility that delivers smart notifications when terminal commands complete or when Claude Code needs user input. Only alerts when the terminal isn't in focus — no unnecessary interruptions.
 
+## Why I Built This
+
+As a PM who codes, I run long builds, deploys, and AI coding sessions daily. I kept missing Claude Code prompts while context-switching between apps. Existing solutions either:
+
+– Spammed notifications regardless of whether I was already watching the terminal
+– Required complex setup or paid tools
+– Didn't support AI coding tools like Claude Code
+
+So I built a focus-aware, CLI-friendly, Claude-ready solution in a weekend. It's not perfect. But it ships. And it's MIT licensed — use it, fork it, improve it.
+
 ---
 
 macOS notifications for terminal commands and Claude Code. Get pinged when long-running commands finish or when Claude Code needs your input. Clicking the notification opens iTerm2 directly.
@@ -38,7 +48,6 @@ git clone https://github.com/joesebastian6079/notify-on-completion.git ~/notify-
 
 # Add to your .zshrc
 echo 'source ~/notify-on-completion/notify-on-completion.zsh' >> ~/.zshrc
-
 # Reload shell
 exec zsh
 ```
