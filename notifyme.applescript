@@ -29,14 +29,7 @@ on run argv
         set soundName to "Basso"
       end if
 
-      -- Use -execute to focus the specific iTerm2 tab, fall back to -activate
-      if sessionId is not "" and focusScript is not "" then
-        set clickAction to "-execute 'osascript " & focusScript & " " & sessionId & "'"
-      else
-        set clickAction to "-activate com.googlecode.iterm2"
-      end if
-
-      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' " & clickAction & "; afplay /System/Library/Sounds/" & soundName & ".aiff"
+      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -activate com.googlecode.iterm2; afplay /System/Library/Sounds/" & soundName & ".aiff"
     end if
   end tell
 end run
