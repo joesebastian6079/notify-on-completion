@@ -35,7 +35,9 @@ _notify_on_completion() {
   # Skip if blacklisted
   [[ ${NOTIFY_BLACKLIST[(r)$base_cmd]} == $base_cmd ]] && return
 
-  (osascript "$NOTIFY_DIR/notifyme.applescript" "$last_cmd" "$last_exit" "$elapsed" &>/dev/null &)
+  # Strip "w0t0p0:" prefix from ITERM_SESSION_ID to get just the UUID
+  local session_id="${ITERM_SESSION_ID##*:}"
+  (osascript "$NOTIFY_DIR/notifyme.applescript" "$last_cmd" "$last_exit" "$elapsed" "$session_id" "$NOTIFY_DIR/focus-iterm-session.applescript" &>/dev/null &)
 
   # Remote notification via ntfy.sh (fires in zsh where NTFY_TOPIC is available)
   if [[ -n "$NTFY_TOPIC" ]]; then

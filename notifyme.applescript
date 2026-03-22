@@ -7,6 +7,10 @@ on run argv
       set cmdName to item 1 of argv
       set errorCode to item 2 of argv
       set elapsedSecs to (item 3 of argv) as integer
+      set sessionId to ""
+      set focusScript to ""
+      if (count of argv) >= 4 then set sessionId to item 4 of argv
+      if (count of argv) >= 5 then set focusScript to item 5 of argv
 
       -- Format elapsed time
       if elapsedSecs >= 60 then
@@ -25,7 +29,14 @@ on run argv
         set soundName to "Basso"
       end if
 
-      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -activate com.googlecode.iterm2; afplay /System/Library/Sounds/" & soundName & ".aiff"
+      -- Use -execute to focus the specific iTerm2 tab, fall back to -activate
+      if sessionId is not "" and focusScript is not "" then
+        set clickAction to "-execute 'osascript " & focusScript & " " & sessionId & "'"
+      else
+        set clickAction to "-activate com.googlecode.iterm2"
+      end if
+
+      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' " & clickAction & "; afplay /System/Library/Sounds/" & soundName & ".aiff"
     end if
   end tell
 end run
