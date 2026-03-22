@@ -36,6 +36,13 @@ _notify_on_completion() {
   [[ ${NOTIFY_BLACKLIST[(r)$base_cmd]} == $base_cmd ]] && return
 
   (osascript "$NOTIFY_DIR/notifyme.applescript" "$last_cmd" "$last_exit" "$elapsed" &>/dev/null &)
+
+  # Remote notification via ntfy.sh (fires in zsh where NTFY_TOPIC is available)
+  if [[ -n "$NTFY_TOPIC" ]]; then
+    local icon="✅"
+    (( last_exit != 0 )) && icon="❌"
+    (curl -s -d "${icon} ${last_cmd} (${elapsed}s)" "ntfy.sh/$NTFY_TOPIC" &>/dev/null &)
+  fi
 }
 
 if [[ ! " ${preexec_functions[*]} " =~ " _notify_preexec " ]]; then
