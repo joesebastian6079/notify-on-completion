@@ -6,16 +6,26 @@ on run argv
     if frontApp is not "iTerm2" and frontApp is not "Terminal" then
       set cmdName to item 1 of argv
       set errorCode to item 2 of argv
-      
-      if errorCode is "0" then
-        set notifTitle to "✅ Command Finished"
-        set notifBody to cmdName
+      set elapsedSecs to (item 3 of argv) as integer
+
+      -- Format elapsed time
+      if elapsedSecs >= 60 then
+        set elapsedStr to ((elapsedSecs div 60) as string) & "m " & ((elapsedSecs mod 60) as string) & "s"
       else
-        set notifTitle to "❌ Command Failed"
-        set notifBody to cmdName & " (exit code " & errorCode & ")"
+        set elapsedStr to (elapsedSecs as string) & "s"
       end if
-      
-      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -activate com.googlecode.iterm2; afplay /System/Library/Sounds/Ping.aiff"
+
+      if errorCode is "0" then
+        set notifTitle to "✅ Done (" & elapsedStr & ")"
+        set notifBody to cmdName
+        set soundName to "Ping"
+      else
+        set notifTitle to "❌ Failed (" & elapsedStr & ")"
+        set notifBody to cmdName & " (exit " & errorCode & ")"
+        set soundName to "Basso"
+      end if
+
+      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -activate com.googlecode.iterm2; afplay /System/Library/Sounds/" & soundName & ".aiff"
     end if
   end tell
 end run
