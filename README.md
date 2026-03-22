@@ -52,7 +52,19 @@ echo 'source ~/notify-on-completion/notify-on-completion.zsh' >> ~/.zshrc
 exec zsh
 ```
 
-Test: Run `sleep 3` and switch to another app. You'll get a notification with sound when it finishes.
+Test: Run `sleep 6` and switch to another app. You'll get a notification with elapsed time and sound when it finishes.
+
+### Optional configuration
+
+Add these to your `.zshrc` **before** the `source` line to customize behavior:
+
+```bash
+# Minimum run time before notifying (default: 5 seconds)
+export NOTIFY_MIN_SECONDS=10
+
+# Commands to never notify about (extends the built-in blacklist)
+NOTIFY_BLACKLIST+=(npm make docker)
+```
 
 ### Claude Code notifications
 
@@ -64,9 +76,11 @@ Or just ask Claude Code to set them up for you.
 
 ## How it works
 
-- ✅ **Success**: Shows "Command Finished" with Ping sound
-- ❌ **Failure**: Shows "Command Failed" with exit code
-- 🔔 **Claude Code**: Different sounds - Ping for task complete, Funk for input needed
+- ✅ **Success**: Shows `Done (12s)` with Ping sound
+- ❌ **Failure**: Shows `Failed (3s)` with exit code and Basso sound
+- ⏱ **Time threshold**: Commands under 5 seconds don't notify (configurable)
+- 🚫 **Smart blacklist**: Quick commands like `ls`, `cd`, `clear` never notify
+- 🔔 **Claude Code**: Ping for task complete, Funk for input needed
 
 Notifications only appear when the terminal is **not** in focus - no spam while you're watching.
 
