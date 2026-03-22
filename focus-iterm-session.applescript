@@ -8,7 +8,7 @@ on run argv
       repeat with t in tabs of w
         repeat with s in sessions of t
           if unique ID of s is targetId then
-            tell w to select t
+            tell s to select
             return
           end if
         end repeat
