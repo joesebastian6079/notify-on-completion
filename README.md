@@ -86,6 +86,25 @@ Notifications only appear when the terminal is **not** in focus - no spam while 
 
 Clicking any notification opens iTerm2 directly.
 
+## Phone notifications (ntfy.sh)
+
+Get notified on your phone even when you're away from your Mac.
+
+1. Install the [ntfy app](https://ntfy.sh/) on your phone (iOS/Android — free)
+2. Pick a unique topic name (e.g. `yourname-dev-notifications`)
+3. Subscribe to it in the app
+4. Add to your `.zshrc`:
+
+```bash
+export NTFY_TOPIC=yourname-dev-notifications
+```
+
+That's it. When `NTFY_TOPIC` is set, all notifications — terminal commands, Claude task finished, and Claude input needed — are sent to your phone via `curl`. If it's not set, nothing changes.
+
+No account required. ntfy.sh is free and open source.
+
+---
+
 ## Note
 
 If you use Terminal.app instead of iTerm2, update the `-activate` parameter in the scripts:

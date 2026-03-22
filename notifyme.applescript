@@ -25,7 +25,7 @@ on run argv
         set soundName to "Basso"
       end if
 
-      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -activate com.googlecode.iterm2; afplay /System/Library/Sounds/" & soundName & ".aiff"
+      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -activate com.googlecode.iterm2; afplay /System/Library/Sounds/" & soundName & ".aiff; if [ -n \"$NTFY_TOPIC\" ]; then curl -s -d '" & notifTitle & ": " & notifBody & "' \"ntfy.sh/$NTFY_TOPIC\" > /dev/null; fi"
     end if
   end tell
 end run
