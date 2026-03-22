@@ -41,7 +41,7 @@ _notify_on_completion() {
   if [[ -n "$NTFY_TOPIC" ]]; then
     local icon="✅"
     (( last_exit != 0 )) && icon="❌"
-    (curl -s -d "${icon} ${last_cmd} (${elapsed}s)" "ntfy.sh/$NTFY_TOPIC" &>/dev/null &)
+    (curl -s -H "Priority: high" -d "${icon} ${last_cmd} (${elapsed}s)" "ntfy.sh/$NTFY_TOPIC" &>/dev/null &)
   fi
 }
 

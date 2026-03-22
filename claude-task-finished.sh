@@ -3,5 +3,5 @@
 afplay /System/Library/Sounds/Ping.aiff
 
 if [[ -n "$NTFY_TOPIC" ]]; then
-  curl -s -d "Claude Code: Task completed" "ntfy.sh/$NTFY_TOPIC" > /dev/null
+  curl -s -H "Priority: high" -d "Claude Code: Task completed" "ntfy.sh/$NTFY_TOPIC" > /dev/null
 fi

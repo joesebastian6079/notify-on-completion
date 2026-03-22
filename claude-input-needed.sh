@@ -3,5 +3,5 @@
 afplay /System/Library/Sounds/Funk.aiff
 
 if [[ -n "$NTFY_TOPIC" ]]; then
-  curl -s -d "Claude Code: Waiting for your input" "ntfy.sh/$NTFY_TOPIC" > /dev/null
+  curl -s -H "Priority: high" -d "Claude Code: Waiting for your input" "ntfy.sh/$NTFY_TOPIC" > /dev/null
 fi
