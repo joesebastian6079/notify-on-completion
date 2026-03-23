@@ -29,7 +29,8 @@ on run argv
         set soundName to "Basso"
       end if
 
-      do shell script "/opt/homebrew/bin/terminal-notifier -title '" & notifTitle & "' -message '" & notifBody & "' -activate com.googlecode.iterm2; afplay /System/Library/Sounds/" & soundName & ".aiff"
+      set notifierBin to do shell script "if [ -x /opt/homebrew/bin/terminal-notifier ]; then echo /opt/homebrew/bin/terminal-notifier; else echo /usr/local/bin/terminal-notifier; fi"
+      do shell script notifierBin & " -title " & quoted form of notifTitle & " -message " & quoted form of notifBody & " -activate com.googlecode.iterm2; afplay /System/Library/Sounds/" & soundName & ".aiff"
     end if
   end tell
 end run
