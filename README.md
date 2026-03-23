@@ -8,18 +8,7 @@ Developers running long terminal commands (builds, deploys, test suites) constan
 
 A lightweight macOS utility that delivers smart notifications when terminal commands complete or when Claude Code needs user input. Only alerts when the terminal isn't in focus — no unnecessary interruptions.
 
-## Why I Built This
-
-As a PM who codes, I run long builds, deploys, and AI coding sessions daily. I kept missing Claude Code prompts while context-switching between apps. Existing solutions either:
-
-– Spammed notifications regardless of whether I was already watching the terminal
-– Required complex setup or paid tools
-– Didn't support AI coding tools like Claude Code
-
-So I built a focus-aware, CLI-friendly, Claude-ready solution in a weekend. It's not perfect. But it ships. And it's MIT licensed — use it, fork it, improve it.
-
 ---
-
 macOS notifications for terminal commands and Claude Code. Get pinged when long-running commands finish or when Claude Code needs your input. Clicking the notification opens iTerm2 directly.
 
 ## What's included
@@ -35,14 +24,16 @@ macOS notifications for terminal commands and Claude Code. Get pinged when long-
 
 - macOS
 - [terminal-notifier](https://github.com/julienXX/terminal-notifier) (for clickable notifications)
-```bash
+
+\```bash
 brew install terminal-notifier
-```
+\```
 
 ## Installation
 
 ### Terminal notifications
-```bash
+
+\```bash
 # Clone the repo
 git clone https://github.com/joesebastian6079/notify-on-completion.git ~/notify-on-completion
 
@@ -50,21 +41,9 @@ git clone https://github.com/joesebastian6079/notify-on-completion.git ~/notify-
 echo 'source ~/notify-on-completion/notify-on-completion.zsh' >> ~/.zshrc
 # Reload shell
 exec zsh
-```
+\```
 
-Test: Run `sleep 6` and switch to another app. You'll get a notification with elapsed time and sound when it finishes.
-
-### Optional configuration
-
-Add these to your `.zshrc` **before** the `source` line to customize behavior:
-
-```bash
-# Minimum run time before notifying (default: 5 seconds)
-export NOTIFY_MIN_SECONDS=10
-
-# Commands to never notify about (extends the built-in blacklist)
-NOTIFY_BLACKLIST+=(npm make docker)
-```
+Test: Run `sleep 3` and switch to another app. You'll get a notification with sound when it finishes.
 
 ### Claude Code notifications
 
@@ -76,40 +55,24 @@ Or just ask Claude Code to set them up for you.
 
 ## How it works
 
-- ✅ **Success**: Shows `Done (12s)` with Ping sound
-- ❌ **Failure**: Shows `Failed (3s)` with exit code and Basso sound
-- ⏱ **Time threshold**: Commands under 5 seconds don't notify (configurable)
-- 🚫 **Smart blacklist**: Quick commands like `ls`, `cd`, `clear` never notify
-- 🔔 **Claude Code**: Ping for task complete, Funk for input needed
+- ✅ **Success**: Shows "Command Finished" with Ping sound
+- ❌ **Failure**: Shows "Command Failed" with exit code
+- 🔔 **Claude Code**: Different sounds - Ping for task complete, Funk for input needed
 
 Notifications only appear when the terminal is **not** in focus - no spam while you're watching.
 
 Clicking any notification opens iTerm2 directly.
-
-## Phone notifications (ntfy.sh)
-
-Get notified on your phone even when you're away from your Mac.
-
-1. Install the [ntfy app](https://ntfy.sh/) on your phone (iOS/Android — free)
-2. Pick a unique topic name (e.g. `yourname-dev-notifications`)
-3. Subscribe to it in the app
-4. Add to your `.zshrc`:
-
-```bash
-export NTFY_TOPIC=yourname-dev-notifications
-```
-
-That's it. When `NTFY_TOPIC` is set, all notifications — terminal commands, Claude task finished, and Claude input needed — are sent to your phone via `curl`. If it's not set, nothing changes.
-
-No account required. ntfy.sh is free and open source.
-
----
 
 ## Note
 
 If you use Terminal.app instead of iTerm2, update the `-activate` parameter in the scripts:
 - iTerm2: `com.googlecode.iterm2`
 - Terminal: `com.apple.Terminal`
+## Why I Built This
+
+I run long builds, deploys, and AI coding sessions daily. I kept missing Claude Code prompts while working in another app. Existing solutions either spammed notifications regardless of focus, required complex setup, or didn't support AI coding tools.
+
+So I built a focus-aware, CLI-friendly, Claude-ready notification tool. It's not perfect. But it works and it's MIT licensed — use it, fork it, improve it.
 
 ## Tradeoffs & Decisions
 
