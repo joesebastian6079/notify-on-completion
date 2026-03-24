@@ -11,6 +11,12 @@ A lightweight macOS utility that delivers smart notifications when terminal comm
 ---
 macOS notifications for terminal commands and Claude Code. Get pinged when long-running commands finish or when Claude Code needs your input. Clicking the notification opens iTerm2 directly.
 
+## Why I Built This
+
+I run long builds, deploys, and AI coding sessions daily. I kept missing Claude Code prompts while working in another app. Existing solutions either spammed notifications regardless of focus, required complex setup, or didn't support AI coding tools.
+
+So I built a focus-aware, CLI-friendly, Claude-ready notification tool. It's not perfect. But it works and it's MIT licensed — use it, fork it, improve it.
+
 ## What's included
 
 | File | Purpose |
@@ -68,22 +74,21 @@ Clicking any notification opens iTerm2 directly.
 If you use Terminal.app instead of iTerm2, update the `-activate` parameter in the scripts:
 - iTerm2: `com.googlecode.iterm2`
 - Terminal: `com.apple.Terminal`
-## Why I Built This
-
-I run long builds, deploys, and AI coding sessions daily. I kept missing Claude Code prompts while working in another app. Existing solutions either spammed notifications regardless of focus, required complex setup, or didn't support AI coding tools.
-
-So I built a focus-aware, CLI-friendly, Claude-ready notification tool. It's not perfect. But it works and it's MIT licensed — use it, fork it, improve it.
 
 ## Tradeoffs & Decisions
 
 – Chose AppleScript over Swift for rapid prototyping and accessibility to non-developers
+
 – Used terminal-notifier for clickable notifications instead of native osascript alerts (which can't focus apps on click)
+
 – iTerm2-specific by design — focused on the terminal most developers actually use rather than trying to support every terminal emulator
 
 ## What I Learned
 
 – macOS notification system has surprising limitations — native osascript notifications can't carry click actions, which forced the terminal-notifier dependency
+
 – Focus detection via System Events is more reliable than checking window process IDs
+
 – Zsh precmd/preexec hooks are the cleanest integration point for shell completion tracking
 
 ## License
