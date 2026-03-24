@@ -41,9 +41,13 @@ _notify_on_completion() {
 
   # Remote notification via ntfy.sh (fires in zsh where NTFY_TOPIC is available)
   if [[ -n "$NTFY_TOPIC" ]]; then
-    local icon="✅"
-    (( last_exit != 0 )) && icon="❌"
-    (curl -s -H "Priority: high" -d "${icon} ${last_cmd} (${elapsed}s)" "ntfy.sh/$NTFY_TOPIC" &>/dev/null &)
+    local idle_seconds
+    idle_seconds=$(ioreg -c IOHIDSystem | awk '/HIDIdleTime/ {print int($NF/1000000000); exit}')
+    if (( idle_seconds >= 600 )); then
+      local icon="✅"
+      (( last_exit != 0 )) && icon="❌"
+      (curl -s -H "Priority: high" -d "${icon} ${last_cmd} (${elapsed}s)" "ntfy.sh/$NTFY_TOPIC" &>/dev/null &)
+    fi
   fi
 }
 
