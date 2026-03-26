@@ -40,12 +40,12 @@ brew install terminal-notifier
 ### Terminal notifications
 
 \```bash
-# Clone the repo
+## Clone the repo
 git clone https://github.com/joesebastian6079/notify-on-completion.git ~/notify-on-completion
 
-# Add to your .zshrc
+## Add to your .zshrc
 echo 'source ~/notify-on-completion/notify-on-completion.zsh' >> ~/.zshrc
-# Reload shell
+## Reload shell
 exec zsh
 \```
 
